@@ -18,7 +18,7 @@ header a {
   font-weight: bold;
 }
 main {
-  padding: 1rem;
+  flex: 1;
 }
 .products {
   display: flex;
@@ -35,4 +35,7 @@ main {
 }
 .product-info {
   padding: 1rem;
+}
+.site-container {
+  min-height: 100vh;
 }
