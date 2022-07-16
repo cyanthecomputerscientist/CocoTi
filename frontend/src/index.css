@@ -20,6 +20,14 @@ header a {
 main {
   flex: 1;
 }
+.cusButton {
+  background-color: #f64a8a;
+  border: 1px #f64a8a solid;
+}
+.cusButton:hover {
+  background-color: #ff66cc;
+  border: 1px #ff66cc solid;
+}
 .products {
   display: flex;
   flex-wrap: wrap;
@@ -35,6 +43,9 @@ main {
 }
 .product-info {
   padding: 1rem;
+}
+.rating span {
+  color: #ff66cc;
 }
 .site-container {
   min-height: 100vh;
