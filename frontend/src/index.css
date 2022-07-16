@@ -28,6 +28,9 @@ main {
   background-color: #ff66cc;
   border: 1px #ff66cc solid;
 }
+.img-large {
+  max-width: 100%;
+}
 .products {
   display: flex;
   flex-wrap: wrap;
