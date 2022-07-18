@@ -1,6 +1,7 @@
 const data = {
   products: [
     {
+      _id: "1",
       name: "Bratitude",
       slug: "bratitude",
       category: "lips",
@@ -12,6 +13,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
+      _id: "2",
       name: "Paradise Pink",
       slug: "paradise-pink",
       category: "lips",
@@ -23,6 +25,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
+      _id: "3",
       name: "Cosmic Pink",
       slug: "comsic-pink",
       category: "lips",
@@ -34,6 +37,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
+      _id: "4",
       name: "Glam Bratz",
       slug: "glam-bratz",
       category: "lips",
@@ -45,6 +49,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
+      _id: "5",
       name: "Forever Diamonds",
       slug: "forever-diamonds",
       category: "lips",
@@ -56,6 +61,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
+      _id: "6",
       name: "Yazmin",
       slug: "yazmin",
       category: "lips",
@@ -67,11 +73,24 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
+      _id: "7",
       name: "Rock Angelz",
       slug: "rock-angelz",
       category: "lips",
       images: "/images/LipProduct7.jpg",
       price: 20,
+      countInStock: 10,
+      rating: 4.5,
+      numReviews: 10,
+      description: "Lorem ipsum dolor sit amet",
+    },
+    {
+      _id: "8",
+      name: "Cateye",
+      slug: "cateye",
+      category: "lashes",
+      images: "/images/Lash1.jpg",
+      price: 15,
       countInStock: 10,
       rating: 4.5,
       numReviews: 10,

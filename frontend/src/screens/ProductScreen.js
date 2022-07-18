@@ -13,6 +13,7 @@ import LoadingBox from "../components/LoadingBox.js";
 import MessageBox from "../components/MessageBox.js";
 import { getError } from "../utils.js";
 import { Store } from "./Store.js";
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_REQUEST":
