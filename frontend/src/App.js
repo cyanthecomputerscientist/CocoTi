@@ -29,11 +29,11 @@ function App() {
               <Nav className="me-auto">
                 <Link to="/cart">
                   <span>
-                    <i class="fa-solid fa-cart-shopping">Cart</i>
+                    <i className="fa-solid fa-cart-shopping">Cart</i>
                   </span>
                   {cart.cartItems.length > 0 && (
                     <Badge pill bg="danger">
-                      {cart.cartItems.length}
+                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
                     </Badge>
                   )}
                 </Link>

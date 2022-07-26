@@ -48,11 +48,21 @@ function ProductScreen() {
     };
     fetchData();
   }, [slug]);
+
   const { state, dispatch: cxtDispatch } = useContext(Store);
-  const addToCartHandler = () => {
+  const { cart } = state;
+
+  const addToCartHandler = async () => {
+    const itemExists = cart.cartItems.find((x) => x._id === product._id);
+    const quantity = itemExists ? itemExists.quantity + 1 : 1;
+    const { data } = await axios.get(`/api/products/${product._id}`);
+    if (data.countInStock < quantity) {
+      window.alert("Sorry. Product is out of stock");
+      return;
+    }
     cxtDispatch({
       type: "CART_ADD_ITEM",
-      payload: { ...product, quantity: 1 },
+      payload: { ...product, quantity },
     });
   };
 
