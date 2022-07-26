@@ -20,14 +20,16 @@ function App() {
             <Container>
               <LinkContainer to="/">
                 <Navbar.Brand>
-                  <img src="../lips.png" alt="Lucious lips"></img>
-                  CocoTi Cosmetics
+                  <figure>
+                    <img src="../lips.png" alt="Lucious lips"></img>
+                    <figcaption>CocoTi Cosmetics</figcaption>
+                  </figure>
                 </Navbar.Brand>
               </LinkContainer>
               <Nav className="me-auto">
                 <Link to="/cart">
                   <span>
-                    <i className="fa-solid fa-cart-shopping">Cart</i>
+                    <i class="fa-solid fa-cart-shopping">Cart</i>
                   </span>
                   {cart.cartItems.length > 0 && (
                     <Badge pill bg="danger">
