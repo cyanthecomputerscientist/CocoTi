@@ -1,7 +1,18 @@
 import express from "express";
 import data from "./data.js";
-
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 const app = express();
+
+dotenv.config();
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log("connected to database");
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
 
 app.get("/api/products", (req, res) => {
   res.send(data.products);
@@ -17,8 +28,6 @@ app.get("/api/products/slug/:slug", (req, res) => {
 });
 app.get("/api/products/:id", (req, res) => {
   const product = data.products.find((x) => parseInt(req.params.id));
-  console.log(req.params);
-  console.log("Hello");
 
   if (product) {
     res.send(product);
