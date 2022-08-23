@@ -1,25 +1,26 @@
 import bcrypt from "bcryptjs";
-
+const adminPassword = process.env.ADMINPASSWORD;
+const userPassword = process.env.USERPASSWORD;
 const data = {
   users: [
     {
       firstName: "Dominique",
       lastName: "Smith",
       email: "dsmithuag@gmail.com",
-      password: bcrypt.hashSync(process.env.ADMIN_PASSWORD),
+      password: bcrypt.hashSync(adminPassword),
       isAdmin: true,
     },
     {
       firstName: "Kalina",
       lastName: "ali",
       email: "kali28@gmail.com",
-      password: bcrypt.hashSync(process.env.USER_PASSWORD),
+      password: bcrypt.hashSync(userPassword),
       isAdmin: false,
     },
   ],
   products: [
     {
-      //_id: "1",
+      _id: "1",
       name: "Bratitude",
       slug: "bratitude",
       category: "lips",
@@ -31,7 +32,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      //_id: "2",
+      _id: "2",
       name: "Paradise Pink",
       slug: "paradise-pink",
       category: "lips",
@@ -43,7 +44,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      //_id: "3",
+      _id: "3",
       name: "Cosmic Pink",
       slug: "comsic-pink",
       category: "lips",
@@ -55,7 +56,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      //_id: "4",
+      _id: "4",
       name: "Glam Bratz",
       slug: "glam-bratz",
       category: "lips",
@@ -67,7 +68,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      //_id: "5",
+      _id: "5",
       name: "Forever Diamonds",
       slug: "forever-diamonds",
       category: "lips",
@@ -79,7 +80,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      //_id: "6",
+      _id: "6",
       name: "Yazmin",
       slug: "yazmin",
       category: "lips",
@@ -91,7 +92,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      //_id: "7",
+      _id: "7",
       name: "Rock Angelz",
       slug: "rock-angelz",
       category: "lips",
@@ -103,7 +104,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      //_id: "8",
+      _id: "8",
       name: "Cateye",
       slug: "cateye",
       category: "lashes",
@@ -115,7 +116,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      //_id: "9",
+      _id: "9",
       name: "Carmen",
       slug: "carmen",
       category: "lashes",
@@ -127,7 +128,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      //_id: "10",
+      _id: "10",
       name: "Big One",
       slug: "big-one",
       category: "lashes",
@@ -139,7 +140,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      //_id: "11",
+      _id: "11",
       name: "Big Purr",
       slug: "big-purr",
       category: "lashes",
@@ -151,7 +152,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      //_id: "12",
+      _id: "12",
       name: "Glitter Snatch",
       slug: "glitter-snatch",
       category: "lashes",
@@ -163,7 +164,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      //_id: "13",
+      _id: "13",
       name: "Platinum",
       slug: "platinum",
       category: "lashes",
@@ -175,7 +176,7 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      //_id: "14",
+      _id: "14",
       name: "Crysalis",
       slug: "crysalis",
       category: "lashes",
