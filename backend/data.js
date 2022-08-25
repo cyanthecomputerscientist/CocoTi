@@ -1,4 +1,7 @@
 import bcrypt from "bcryptjs";
+import dotenv from "dotenv";
+dotenv.config();
+
 const adminPassword = process.env.ADMINPASSWORD;
 const userPassword = process.env.USERPASSWORD;
 const data = {
@@ -20,7 +23,6 @@ const data = {
   ],
   products: [
     {
-      _id: "1",
       name: "Bratitude",
       slug: "bratitude",
       category: "lips",
@@ -32,7 +34,6 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      _id: "2",
       name: "Paradise Pink",
       slug: "paradise-pink",
       category: "lips",
@@ -44,7 +45,6 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      _id: "3",
       name: "Cosmic Pink",
       slug: "comsic-pink",
       category: "lips",
@@ -56,7 +56,6 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      _id: "4",
       name: "Glam Bratz",
       slug: "glam-bratz",
       category: "lips",
@@ -68,7 +67,6 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      _id: "5",
       name: "Forever Diamonds",
       slug: "forever-diamonds",
       category: "lips",
@@ -80,7 +78,6 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      _id: "6",
       name: "Yazmin",
       slug: "yazmin",
       category: "lips",
@@ -92,7 +89,6 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      _id: "7",
       name: "Rock Angelz",
       slug: "rock-angelz",
       category: "lips",
@@ -104,7 +100,6 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      _id: "8",
       name: "Cateye",
       slug: "cateye",
       category: "lashes",
@@ -116,7 +111,6 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      _id: "9",
       name: "Carmen",
       slug: "carmen",
       category: "lashes",
@@ -128,7 +122,6 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      _id: "10",
       name: "Big One",
       slug: "big-one",
       category: "lashes",
@@ -140,7 +133,6 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      _id: "11",
       name: "Big Purr",
       slug: "big-purr",
       category: "lashes",
@@ -152,7 +144,6 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      _id: "12",
       name: "Glitter Snatch",
       slug: "glitter-snatch",
       category: "lashes",
@@ -164,7 +155,6 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      _id: "13",
       name: "Platinum",
       slug: "platinum",
       category: "lashes",
@@ -176,7 +166,6 @@ const data = {
       description: "Lorem ipsum dolor sit amet",
     },
     {
-      _id: "14",
       name: "Crysalis",
       slug: "crysalis",
       category: "lashes",
