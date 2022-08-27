@@ -4,9 +4,9 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/esm/Button";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import toast from "react-toastify";
+import { toast } from "react-toastify";
 import Axios from "axios";
-import Store from "./Store";
+import { Store } from "./Store";
 import { getError } from "../utils";
 
 export default function SigninScreen() {
@@ -18,6 +18,7 @@ export default function SigninScreen() {
   const [password, setPassword] = useState("");
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
+
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -33,7 +34,7 @@ export default function SigninScreen() {
     if (userInfo) {
       navigate(redirect);
     }
-  });
+  }, [navigate, redirect, userInfo]);
   return (
     <Container className="small-container">
       <Helmet>
