@@ -22,7 +22,10 @@ export default function SigninScreen() {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await Axios.post("api/users/sigin", { email, password });
+      const { data } = await Axios.post("api/users/signin", {
+        email,
+        password,
+      });
       ctxDispatch({ type: "USER_SIGNIN", payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
       navigate(redirect || "/");
@@ -63,7 +66,8 @@ export default function SigninScreen() {
         </div>
         <div className="mb-3">
           New customer? Welcome!{" "}
-          <Link to={`/signup?redirect=${redirect}`}>Create your account</Link>
+          <Link to={`/signup?redirect=${redirect}`}>Create your account </Link>
+          or Checkout as a <Link to="/guest"> Guest</Link>
         </div>
       </Form>
     </Container>

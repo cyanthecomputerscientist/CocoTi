@@ -13,6 +13,7 @@ import { useContext } from "react";
 import { Store } from "./screens/Store";
 import CartScreen from "./screens/CartScreen";
 import SigninScreen from "./screens/SigninScreen";
+import ShippingAddressScreen from "./screens/ShippingAddressScreen";
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -20,7 +21,9 @@ function App() {
   const signoutHandler = () => {
     ctxDispatch({ type: "USER_SIGNOUT" });
     localStorage.removeItem("userInfo");
+    localStorage.removeItem("shippingAddress");
   };
+
   return (
     <BrowserRouter>
       <div className="d-flex flex-column site-container">
@@ -48,22 +51,25 @@ function App() {
                   )}
                 </Link>
                 {userInfo ? (
-                  <NavDropDown title={userInfo.name} id="basic-nav-dropdown">
+                  <NavDropDown
+                    title={userInfo.firstName}
+                    id="basic-nav-dropdown"
+                  >
                     <LinkContainer to="/profile">
-                      <NavDropDown.Item>User Profile</NavDropDown.Item>
+                      <NavDropDown.Item> User Profile</NavDropDown.Item>
                     </LinkContainer>
-                    <LinkContainer to="/orderhistory">
-                      Order History
+                    <LinkContainer to="orderhistory">
+                      <NavDropDown.Item>Order History</NavDropDown.Item>
                     </LinkContainer>
-                    <NavDropDown.Item>
-                      <Link
-                        className="dropdown-item"
-                        to="#signout"
-                        onClick={signoutHandler}
-                      >
-                        Sign Out
-                      </Link>
-                    </NavDropDown.Item>
+                    <NavDropDown.Divider></NavDropDown.Divider>
+                    <Link
+                      className="dropdown-item"
+                      to="#signout"
+                      onClick={signoutHandler}
+                    >
+                      {" "}
+                      Sign Out
+                    </Link>
                   </NavDropDown>
                 ) : (
                   <Link className="nav-link" to="/signin">
@@ -80,6 +86,10 @@ function App() {
               <Route path="/product/:slug" element={<ProductScreen />} />
               <Route path="/cart" element={<CartScreen></CartScreen>}></Route>
               <Route path="/signin" element={<SigninScreen></SigninScreen>} />
+              <Route
+                path="/shipping"
+                element={<ShippingAddressScreen></ShippingAddressScreen>}
+              ></Route>
               <Route path="/" element={<HomeScreen />} />
             </Routes>
           </Container>
