@@ -15,6 +15,7 @@ import CartScreen from "./screens/CartScreen";
 import SigninScreen from "./screens/SigninScreen";
 import ShippingAddressScreen from "./screens/ShippingAddressScreen";
 import SignupScreen from "./screens/SignupScreen";
+import PaymentMethodScreen from "./screens/PaymentMethodScreen";
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -23,6 +24,7 @@ function App() {
     ctxDispatch({ type: "USER_SIGNOUT" });
     localStorage.removeItem("userInfo");
     localStorage.removeItem("shippingAddress");
+    localStorage.removeItem("paymentMethod");
   };
 
   return (
@@ -56,7 +58,6 @@ function App() {
                     title={userInfo.firstName}
                     id="basic-nav-dropdown"
                   >
-                    {userInfo.firstName}
                     <LinkContainer to="/profile">
                       <NavDropDown.Item> User Profile</NavDropDown.Item>
                     </LinkContainer>
@@ -95,6 +96,10 @@ function App() {
               <Route
                 path="/shipping"
                 element={<ShippingAddressScreen></ShippingAddressScreen>}
+              ></Route>
+              <Route
+                path="/payment"
+                element={<PaymentMethodScreen></PaymentMethodScreen>}
               ></Route>
               <Route path="/" element={<HomeScreen />} />
             </Routes>
