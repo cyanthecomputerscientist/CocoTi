@@ -21,7 +21,7 @@ export default function ShippingAddressScreen() {
     shippingAddress.postalCode || ""
   );
   const [country, setCountry] = useState(shippingAddress.country || "");
-
+  const [states, setStates] = useState(shippingAddress.states || "");
   useEffect(() => {
     if (!userInfo) {
       navigate("/signin?redirect=/shipping");
@@ -31,7 +31,15 @@ export default function ShippingAddressScreen() {
     e.preventDefault();
     ctxDispach({
       type: "SAVE_SHIPPING_ADDRESS",
-      payload: { firstName, lastName, address, city, postalCode, country },
+      payload: {
+        firstName,
+        lastName,
+        address,
+        city,
+        states,
+        postalCode,
+        country,
+      },
     });
     localStorage.setItem(
       "shippingAddress",
@@ -40,6 +48,7 @@ export default function ShippingAddressScreen() {
         lastName,
         address,
         city,
+        states,
         postalCode,
         country,
       })
@@ -85,6 +94,13 @@ export default function ShippingAddressScreen() {
               value={city}
               onChange={(e) => setCity(e.target.value)}
               required
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>State</Form.Label>
+            <Form.Control
+              value={states}
+              onChange={(e) => setStates(e.target.value)}
             ></Form.Control>
           </Form.Group>
           <Form.Group>

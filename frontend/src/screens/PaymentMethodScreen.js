@@ -55,7 +55,9 @@ export default function PaymentMethodScreen() {
             ></Form.Check>
           </div>
           <div className="mb-3">
-            <Button type="submit">Continue</Button>
+            <Button type="submit" className="cusButton" variant="primary">
+              Continue
+            </Button>
           </div>
         </Form>
       </div>
