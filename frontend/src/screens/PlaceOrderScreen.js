@@ -60,9 +60,10 @@ export default function PlaceOrderScreen() {
             <Card.Body>
               <Card.Title>Payment</Card.Title>
               <Card.Text>
-                <strong>Method: </strong> {cart.paymentMethod}
+                {" "}
+                <strong>Method:</strong> {cart.paymentMethod}{" "}
               </Card.Text>
-              <Link to="/payment"> Edit</Link>
+              <Link to="/payment">Edit </Link>
             </Card.Body>
           </Card>
           {/* Items */}
@@ -92,53 +93,57 @@ export default function PlaceOrderScreen() {
               <Link to="/cart"> Edit</Link>
             </Card.Body>
           </Card>
-          <Col md={4}>
-            <Card>
-              <Card.Body>
-                <Card.Title> Order Summary </Card.Title>
-                <ListGroup variant="flush">
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Items</Col>
-                      <Col>${cart.itemsPrice.toFixed(2)}</Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Row>
-                      <Col> Shipping</Col>
-                      <Col> ${cart.shippingPrice.toFixed(2)}</Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Row>
-                      <Col> Tax </Col>
-                      <Col>${cart.taxPrice.toFixed(2)}</Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>
-                        <strong> Order Total </strong>
-                      </Col>
-                      <Col>${cart.totalPrice.toFixed(2)}</Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <div className="d-grid">
-                      <Button
-                        type="button"
-                        disabled={cart.cartItems.length === 0}
-                        onClick={placeOrderHandler}
-                        className="cusButton"
-                      >
-                        Place Order
-                      </Button>
-                    </div>
-                  </ListGroup.Item>
-                </ListGroup>
-              </Card.Body>
-            </Card>
-          </Col>
+        </Col>
+        <Col md={4}>
+          <Card>
+            <Card.Body>
+              <Card.Title>Order Summary</Card.Title>
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Items</Col>
+                    <Col>${cart.itemsPrice.toFixed(2)}</Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Shipping</Col>
+                    <Col>${cart.shippingPrice.toFixed(2)}</Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Tax</Col>
+                    <Col>
+                      <strong> ${cart.taxPrice.toFixed(2)} </strong>{" "}
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>
+                      <strong>Order Total</strong>
+                    </Col>
+                    <Col>
+                      <strong>${cart.totalPrice.toFixed(2)}</strong>
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <div className="d-grid">
+                    <Button
+                      type="button"
+                      disabled={cart.cartItems.length === 0}
+                      onClick={placeOrderHandler}
+                      className="cusButton"
+                    >
+                      Place Order
+                    </Button>
+                  </div>
+                </ListGroup.Item>
+              </ListGroup>
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
     </div>
