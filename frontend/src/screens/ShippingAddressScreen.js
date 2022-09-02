@@ -22,6 +22,7 @@ export default function ShippingAddressScreen() {
   );
   const [country, setCountry] = useState(shippingAddress.country || "");
   const [states, setStates] = useState(shippingAddress.states || "");
+
   useEffect(() => {
     if (!userInfo) {
       navigate("/signin?redirect=/shipping");

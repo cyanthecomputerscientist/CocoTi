@@ -16,6 +16,7 @@ export default function CartScreen() {
   const {
     cart: { cartItems },
   } = state;
+
   const updateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
@@ -63,7 +64,7 @@ export default function CartScreen() {
                     </Col>
                     <Col md={3}>
                       <Button
-                        variant="ligt"
+                        variant="light"
                         disabled={item.quantity === 1}
                         onClick={() =>
                           updateCartHandler(item, item.quantity - 1)

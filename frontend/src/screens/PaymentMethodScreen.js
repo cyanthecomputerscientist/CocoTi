@@ -12,18 +12,21 @@ export default function PaymentMethodScreen() {
   const {
     cart: { shippingAddress, paymentMethod },
   } = state;
-  const [paymentMethodName, setPaymentMethod] = useState(paymentMethod || "");
+  const [paymentMethodName, setPaymentMethod] = useState(
+    paymentMethod || "PayPal"
+  );
 
   useEffect(() => {
     if (!shippingAddress.address) {
       navigate("/shipping");
     }
   }, [shippingAddress, navigate]);
+
   const submitHandler = (e) => {
     e.preventDefault();
     ctxDispatch({ type: "SAVE_PAYMENT_METHOD", payload: paymentMethodName });
-    localStorage.setItem("payMethod", paymentMethod);
-    navigate("/placeholder");
+    localStorage.setItem("paymentMethod", paymentMethodName);
+    navigate("/placeorder");
   };
   return (
     <div>
@@ -55,7 +58,7 @@ export default function PaymentMethodScreen() {
             ></Form.Check>
           </div>
           <div className="mb-3">
-            <Button type="submit" className="cusButton" variant="primary">
+            <Button type="submit" className="cusButton">
               Continue
             </Button>
           </div>
