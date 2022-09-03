@@ -1,4 +1,4 @@
-import { React, useContext, useEffect } from "react";
+import { React, useContext, useEffect, useReducer } from "react";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
 import Card from "react-bootstrap/Card";
@@ -8,12 +8,31 @@ import { Link, useNavigate } from "react-router-dom";
 import { Store } from "./Store";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/esm/Button";
+import { toast } from "react-toastify";
+import { getError } from "../utils";
+import Axios from "axios";
+import LoadingBox from "../components/LoadingBox";
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "CREATE_REQUEST":
+      return { ...state, loading: true };
+    case "CREATE_SUCCESS":
+      return { ...state, loading: false };
+    case "CREATE_FAIL":
+      return { ...state, loading: false };
+    default:
+      return state;
+  }
+};
 
 export default function PlaceOrderScreen() {
   const navigate = useNavigate();
-  const { state, ctxDispatch } = useContext(Store);
+  const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
-
+  const [{ loading }, dispatch] = useReducer(reducer, {
+    loading: false,
+  });
   cart.itemsPrice = cart.cartItems.reduce(
     (a, c) => a + c.quantity * c.price,
     0
@@ -25,7 +44,43 @@ export default function PlaceOrderScreen() {
   cart.taxPrice = round2(cart.itemsPrice * 0.15);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
-  const placeOrderHandler = async () => {};
+  const placeOrderHandler = async () => {
+    try {
+      dispatch({ type: "CREATE_REQUEST" });
+      const { data } = await Axios.post(
+        "/api/orders",
+        {
+          orderItems: cart.cartItems,
+          shippingAddress: {
+            firstName: cart.shippingAddress.firstName,
+            lastName: cart.shippingAddress.lastName,
+            address: cart.shippingAddress.address,
+            city: cart.shippingAddress.city,
+            states: cart.shippingAddress.states,
+            postalCode: cart.shippingAddress.postalCode,
+            country: cart.shippingAddress.country,
+          },
+          paymentMethod: cart.paymentMethod,
+          itemsPrice: cart.itemsPrice,
+          shippingPrice: cart.shippingPrice,
+          taxPrice: cart.taxPrice,
+          totalPrice: cart.totalPrice,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+      );
+      ctxDispatch({ type: "CART_CLEAR" });
+      dispatch({ type: "CREATE_SUCESS" });
+      localStorage.removeItem("cartItems");
+      navigate(`/order/${data.order._id}`);
+    } catch (err) {
+      dispatch({ type: "CREATE_FAIL" });
+      toast.error(getError(err));
+    }
+  };
 
   useEffect(() => {
     if (!cart.paymentMethod) {
@@ -50,7 +105,7 @@ export default function PlaceOrderScreen() {
                 {cart.shippingAddress.lastName} <br></br>
                 <strong> Address: </strong> {cart.shippingAddress.address}{" "}
                 {cart.shippingAddress.city}, {cart.shippingAddress.states}{" "}
-                {cart.shippingAddress.postalCode}
+                {cart.shippingAddress.country} {cart.shippingAddress.postalCode}
               </Card.Text>
               <Link to="/shipping">Edit</Link>
             </Card.Body>
@@ -114,9 +169,7 @@ export default function PlaceOrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Tax</Col>
-                    <Col>
-                      <strong> ${cart.taxPrice.toFixed(2)} </strong>{" "}
-                    </Col>
+                    <Col>${cart.taxPrice.toFixed(2)} </Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -140,6 +193,7 @@ export default function PlaceOrderScreen() {
                       Place Order
                     </Button>
                   </div>
+                  {loading && <LoadingBox></LoadingBox>}
                 </ListGroup.Item>
               </ListGroup>
             </Card.Body>
