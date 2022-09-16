@@ -26,6 +26,11 @@ figure img {
 main {
   flex: 1;
 }
+/* .btn-primary,
+.btn-outline-primary {
+  background-color: #f64a8a;
+  color: whitesmoke;
+} */
 .cusButton {
   background-color: #f64a8a;
   border: 1px #f64a8a solid;
@@ -72,4 +77,29 @@ main {
 .checkout-steps > div.active {
   border-bottom: 0.2rem solid #f64a8a;
   color: #f64a8a;
+}
+/* Sidebar  */
+.navbar-brand {
+  font-weight: bold;
+}
+.side-navbar {
+  width: 240px;
+  height: 100%;
+  position: absolute;
+  left: -300px;
+  transition: 0.5s;
+  background-color: #f64a8a;
+}
+.active-cont {
+  margin-left: 240px;
+}
+.active-nav {
+  left: 0;
+}
+.site-container {
+  transition: 0.4s;
+}
+.search-button {
+  color: whitesmoke;
+  border: 1px whitesmoke solid;
 }
