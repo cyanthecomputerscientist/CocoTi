@@ -176,6 +176,28 @@ const data = {
       numReviews: 10,
       description: "Lorem ipsum dolor sit amet",
     },
+    {
+      name: "Big Lippie Bundle",
+      slug: "big-lippie-bundle",
+      category: "lips",
+      price: 45,
+      images: "/images/LipBundle.jpg",
+      countInStock: 10,
+      rating: 4.5,
+      numReviews: 10,
+      description: "Lorem ipsum dolor sit amet",
+    },
+    {
+      name: "In the Nude Bundle",
+      slug: "in-the-nude-bundle",
+      category: "lips",
+      price: 30,
+      images: "/images/LipBundle2.jpg",
+      countInStock: 10,
+      rating: 4.5,
+      numReviews: 10,
+      description: "Lorem ipsum dolor sit amet",
+    },
   ],
 };
 
