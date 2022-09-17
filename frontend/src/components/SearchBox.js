@@ -3,14 +3,15 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 export default function SearchBox() {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
+
   const submitHandler = (e) => {
-    e.prevrentDefault();
-    navigate(query ? `/search/?query=${query}` : "search");
+    e.preventDefault();
+    navigate(query ? `/search/?query=${query}` : "/search");
   };
 
   return (

@@ -103,3 +103,6 @@ main {
   color: whitesmoke;
   border: 1px whitesmoke solid;
 }
+.text-bold {
+  font-weight: bold;
+}
