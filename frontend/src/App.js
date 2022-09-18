@@ -25,6 +25,9 @@ import { getError } from "./utils";
 import axios from "axios";
 import SearchBox from "./components/SearchBox";
 import SearchScreen from "./screens/SearchScreen";
+import ProtectedRoutes from "./components/ProtectedRoutes";
+import AdminRoute from "./screens/AdminRoute";
+import DashboardScreen from "./screens/DashboardScreen";
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -115,6 +118,22 @@ function App() {
                       Sign In
                     </Link>
                   )}
+                  {userInfo && !userInfo.isAdmin && (
+                    <NavDropDown title="Admin" id="admin-nav-dropdown">
+                      <LinkContainer to="/admin/dashboard">
+                        <NavDropDown.Item>Dashboard</NavDropDown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/productlist">
+                        <NavDropDown.Item>Products</NavDropDown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/orderlist">
+                        <NavDropDown.Item>Orders</NavDropDown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/userlist">
+                        <NavDropDown.Item>Users</NavDropDown.Item>
+                      </LinkContainer>
+                    </NavDropDown>
+                  )}
                 </Nav>
               </Navbar.Collapse>
             </Container>
@@ -157,7 +176,11 @@ function App() {
               <Route path="/signin" element={<SigninScreen></SigninScreen>} />
               <Route
                 path="/profile"
-                element={<ProfileScreen></ProfileScreen>}
+                element={
+                  <ProtectedRoutes>
+                    <ProfileScreen></ProfileScreen>
+                  </ProtectedRoutes>
+                }
               ></Route>
               <Route
                 path="/signup"
@@ -165,7 +188,11 @@ function App() {
               ></Route>
               <Route
                 path="/placeorder"
-                element={<PlaceOrderScreen></PlaceOrderScreen>}
+                element={
+                  <ProtectedRoutes>
+                    <PlaceOrderScreen></PlaceOrderScreen>
+                  </ProtectedRoutes>
+                }
               ></Route>
               <Route
                 path="/order/:id"
@@ -173,7 +200,11 @@ function App() {
               ></Route>
               <Route
                 path="/orderhistory"
-                element={<OrderHistoryScreen></OrderHistoryScreen>}
+                element={
+                  <ProtectedRoutes>
+                    <OrderHistoryScreen></OrderHistoryScreen>
+                  </ProtectedRoutes>
+                }
               ></Route>
               <Route
                 path="/shipping"
@@ -182,6 +213,15 @@ function App() {
               <Route
                 path="/payment"
                 element={<PaymentMethodScreen></PaymentMethodScreen>}
+              ></Route>
+              {/* Admin Routes */}
+              <Route
+                path="/admin/dashboard"
+                element={
+                  <AdminRoute>
+                    <DashboardScreen></DashboardScreen>{" "}
+                  </AdminRoute>
+                }
               ></Route>
 
               <Route path="/" element={<HomeScreen />} />
