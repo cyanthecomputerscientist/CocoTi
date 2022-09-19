@@ -10,6 +10,25 @@ productRouter.get("/", async (req, res) => {
   const products = await Product.find();
   res.send(products);
 });
+productRouter.post(
+  "/",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const newProduct = new Product({
+      name: "Sample " + Date.now(),
+      slug: "sample-" + Date.now(),
+      images: "/images/LipProduct1.jpg",
+      price: 0,
+      category: "lips",
+      countInStock: 0,
+      rating: 0,
+      numReviews: 0,
+      description: "Lorem ipsum",
+    });
+    const product = await newProduct.save();
+    res.send({ message: "Product Created", product });
+  })
+);
 const PAGE_SIZE = 6;
 productRouter.get(
   "/admin",
