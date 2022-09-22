@@ -50,6 +50,19 @@ productRouter.put(
     }
   })
 );
+productRouter.delete(
+  "/:id",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const product = await Product.findById(req.params.id);
+    if (product) {
+      await product.remove();
+      res.send({ message: "Product Delete " });
+    } else {
+      res.status(404).send({ message: "Product Not Found" });
+    }
+  })
+);
 const PAGE_SIZE = 6;
 productRouter.get(
   "/admin",
