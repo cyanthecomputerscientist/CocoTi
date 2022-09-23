@@ -14,6 +14,7 @@ import { Store } from "./Store";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Button from "react-bootstrap/Button";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -31,6 +32,12 @@ function reducer(state, action) {
       return { ...state, loadingPay: false };
     case "PAY_RESET":
       return { ...state, loadingPay: false, successPay: false };
+    case "DELIVERY_REQUEST":
+      return { ...state, loadingDeliver: true };
+    case "DELIVERY_SUCCESS":
+      return { ...state, loadingDeliver: false, successDeliver: true };
+    case "DELIVERY_RESET":
+      return { ...state, loadingDeliver: false, successDeliver: false };
     default:
       return state;
   }
@@ -42,14 +49,24 @@ export default function OrderScreens() {
   const navigate = useNavigate();
   const params = useParams();
   const { id: orderId } = params;
-  const [{ loading, error, order, successPay, loadingPay }, dispatch] =
-    useReducer(reducer, {
-      loading: true,
-      order: {},
-      error: "",
-      successPay: false,
-      loadingPay: false,
-    });
+  const [
+    {
+      loading,
+      error,
+      order,
+      successPay,
+      loadingPay,
+      loadingDeliver,
+      successDeliver,
+    },
+    dispatch,
+  ] = useReducer(reducer, {
+    loading: true,
+    order: {},
+    error: "",
+    successPay: false,
+    loadingPay: false,
+  });
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
   function createOrder(data, actions) {
@@ -109,6 +126,9 @@ export default function OrderScreens() {
       if (successPay) {
         dispatch({ type: "PAY_RESET" });
       }
+      if (successDeliver) {
+        dispatch({ type: "DELIVERY_RESET" });
+      }
     } else {
       const loadPaypalScript = async () => {
         const { data: clientId } = await axios.get(`/api/keys/paypal`, {
@@ -125,7 +145,31 @@ export default function OrderScreens() {
       };
       loadPaypalScript();
     }
-  }, [order, userInfo, orderId, navigate, paypalDispatch, successPay]);
+  }, [
+    order,
+    userInfo,
+    orderId,
+    navigate,
+    paypalDispatch,
+    successPay,
+    successDeliver,
+  ]);
+
+  async function deliverOrderHandler() {
+    try {
+      dispatch({ type: "DELIVER_REQUEST" });
+      const { data } = await axios.put(
+        `/api/orders/${order._id}/deliver`,
+        {},
+        { headers: { authorization: `Bearer ${userInfo.token}` } }
+      );
+      dispatch({ type: "DELIVER_SUCCESS" });
+      toast.success("Order is Delivered");
+    } catch (err) {
+      toast.error(getError(err));
+      dispatch({ type: "DELIVER_FAIL" });
+    }
+  }
   return loading ? (
     <LoadingBox></LoadingBox>
   ) : error ? (
@@ -245,6 +289,22 @@ export default function OrderScreens() {
                       </div>
                     )}
                     {loadingPay && <LoadingBox></LoadingBox>}
+                  </ListGroup.Item>
+                )}
+                {order.isPaid && !order.isDelivered && (
+                  <ListGroup.Item>
+                    {userInfo.isAdmin && loadingDeliver && (
+                      <LoadingBox></LoadingBox>
+                    )}
+                    <div className="d-grid">
+                      <Button
+                        type="button"
+                        className="cusButton"
+                        onClick={deliverOrderHandler}
+                      >
+                        Deliver Order
+                      </Button>
+                    </div>
                   </ListGroup.Item>
                 )}
               </ListGroup>
