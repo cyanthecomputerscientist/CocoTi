@@ -1,7 +1,7 @@
 import express from "express";
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
-import { generateToken, isAuth } from "../utils.js";
+import { generateToken, isAdmin, isAuth } from "../utils.js";
 import expressAsyncHandler from "express-async-handler";
 const userRouter = express.Router();
 
@@ -17,6 +17,7 @@ userRouter.get(
 userRouter.get(
   "/:id",
   isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
@@ -29,6 +30,7 @@ userRouter.get(
 userRouter.put(
   "/:id",
   isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
@@ -46,11 +48,11 @@ userRouter.put(
 userRouter.delete(
   "/:id",
   isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
       if (user.isAdmin) {
-        console.log(user.isAdmin);
         res.status(400).send({ message: "Can Not Delete Admin user" });
         return;
       }
@@ -69,6 +71,7 @@ userRouter.post(
           _id: user._id,
           name: user.firstName,
           email: user.email,
+          isAdmin: user.isAdmin,
           token: generateToken(user),
         });
         return;
