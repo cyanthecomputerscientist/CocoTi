@@ -57,8 +57,10 @@ function App() {
         toast.error(getError(error));
       }
     };
+
     fetchCategories();
   }, []);
+  //console.log(userInfo, userInfo.isAdmin, userInfo && userInfo.isAdmin);
   return (
     <BrowserRouter>
       <div
@@ -123,7 +125,7 @@ function App() {
                       Sign In
                     </Link>
                   )}
-                  {userInfo && !userInfo.isAdmin && (
+                  {userInfo && userInfo.isAdmin && (
                     <NavDropDown title="Admin" id="admin-nav-dropdown">
                       <LinkContainer to="/admin/dashboard">
                         <NavDropDown.Item>Dashboard</NavDropDown.Item>
