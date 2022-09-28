@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/cyanthecomputerscientist/CocoTi/issues"
   },
-  "homepage": "https://github.com/cyanthecomputerscientist/CocoTi#readme"
+  "homepage": "https://github.com/cyanthecomputerscientist/CocoTi#readme",
+  "dependencies": {
+    "debug": "^4.3.4"
+  }
 }
