@@ -1,4 +1,3 @@
-import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -10,14 +9,14 @@ const data = {
       firstName: "Dominique",
       lastName: "Smith",
       email: "dsmithuag@gmail.com",
-      password: bcrypt.hashSync(adminPassword),
+      password: adminPassword,
       isAdmin: true,
     },
     {
       firstName: "Kalina",
       lastName: "ali",
       email: "kali28@gmail.com",
-      password: bcrypt.hashSync(userPassword),
+      password: userPassword,
       isAdmin: false,
     },
   ],
