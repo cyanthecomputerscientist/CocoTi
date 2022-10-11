@@ -78,7 +78,7 @@ export default function MapScreen() {
     markerRef.current = marker;
   };
   const onConfirm = () => {
-    const places = placeRef.current.getPlaces() || {};
+    const places = placeRef.current.getPlaces() || [{}];
     console.log(places[0]);
     ctxDispach({
       type: "SAVE_SHIPPING_ADDRESS_MAP_LOCATION",
