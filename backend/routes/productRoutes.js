@@ -1,4 +1,4 @@
-import express, { query } from "express";
+import express from "express";
 import Product from "../models/productModel.js";
 import data from "../data.js";
 import expressAsyncHandler from "express-async-handler";
@@ -13,6 +13,7 @@ productRouter.get("/", async (req, res) => {
 productRouter.post(
   "/",
   isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const newProduct = new Product({
       name: "Sample " + Date.now(),
@@ -32,6 +33,7 @@ productRouter.post(
 productRouter.put(
   "/:id",
   isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const productId = req.params.id;
     const product = await Product.findById(productId);
@@ -67,6 +69,7 @@ const PAGE_SIZE = 6;
 productRouter.get(
   "/admin",
   isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const { query } = req;
     const page = query.page || 1;

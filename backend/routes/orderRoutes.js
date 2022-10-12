@@ -9,6 +9,7 @@ const orderRouter = express.Router();
 orderRouter.get(
   "/",
   isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const orders = await Order.find().populate("user", "firstName");
     res.send(orders);
@@ -35,6 +36,8 @@ orderRouter.post(
 orderRouter.get(
   "/summary",
   isAuth,
+  isAdmin,
+
   expressAsyncHandler(async (req, res) => {
     const orders = await Order.aggregate([
       {
@@ -160,6 +163,7 @@ orderRouter.put(
 orderRouter.delete(
   "/:id",
   isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
     if (order) {

@@ -8,6 +8,7 @@ const userRouter = express.Router();
 userRouter.get(
   "/",
   isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const users = await User.find();
     res.send(users);
