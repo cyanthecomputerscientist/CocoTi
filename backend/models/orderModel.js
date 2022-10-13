@@ -20,6 +20,7 @@ const orderSchema = new mongoose.Schema(
       lastName: { type: String, required: true },
       address: { type: String, required: true },
       city: { type: String, required: true },
+      states: { type: String },
       postalCode: { type: String, required: true },
       country: { type: String, required: true },
       location: {
