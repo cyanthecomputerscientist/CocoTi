@@ -30,7 +30,6 @@ export default function ShippingAddressScreen() {
     }
   });
   const submitHandler = (e) => {
-    e.preventDefault();
     ctxDispach({
       type: "SAVE_SHIPPING_ADDRESS",
       payload: {
