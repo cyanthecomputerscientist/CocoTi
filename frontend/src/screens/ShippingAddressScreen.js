@@ -14,7 +14,7 @@ export default function ShippingAddressScreen() {
     userInfo,
     cart: { shippingAddress },
   } = state;
-  const [firstName, setFirstName] = useState(shippingAddress.fullName || "");
+  const [firstName, setFirstName] = useState(shippingAddress.firstName || "");
   const [lastName, setLastName] = useState(shippingAddress.lastName || "");
   const [address, setAddress] = useState(shippingAddress.address || "");
   const [city, setCity] = useState(shippingAddress.city || "");
@@ -30,6 +30,7 @@ export default function ShippingAddressScreen() {
     }
   });
   const submitHandler = (e) => {
+    e.preventDefault();
     ctxDispach({
       type: "SAVE_SHIPPING_ADDRESS",
       payload: {
