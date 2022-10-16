@@ -43,7 +43,7 @@ function ProductScreen() {
 
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-
+  const [selectedImage, setSelectedImage] = useState("");
   const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
@@ -122,7 +122,7 @@ function ProductScreen() {
         <Col md={6}>
           <img
             className="img-large"
-            src={product.images}
+            src={selectedImage || product.images}
             alt={product.name}
           ></img>
         </Col>
@@ -141,6 +141,28 @@ function ProductScreen() {
             </ListGroup.Item>
             <ListGroup.Item> Price: ${product.price}</ListGroup.Item>
             <ListGroup.Item>
+              <Row xs={1} md={2} className="g-2">
+                {[product.images, ...product.moreImages].map((x) => (
+                  <Col key={x}>
+                    <Card>
+                      <Button
+                        className="thumbnail"
+                        type="button"
+                        variant="light"
+                        onClick={() => setSelectedImage(x)}
+                      >
+                        <Card.Img
+                          variant="top"
+                          src={x}
+                          alt="product"
+                        ></Card.Img>
+                      </Button>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </ListGroup.Item>
+            <ListGroup.Item>
               {" "}
               Description: <p>{product.description}</p>
             </ListGroup.Item>
@@ -156,6 +178,7 @@ function ProductScreen() {
                     <Col>${product.price}</Col>
                   </Row>
                 </ListGroup.Item>
+
                 <ListGroup.Item>
                   <Row>
                     <Col>Status: </Col>
@@ -185,6 +208,7 @@ function ProductScreen() {
           </Card>
         </Col>
       </Row>
+
       <div className="my-3">
         <h2 ref={reviewsRef}> Reviews</h2>
       </div>

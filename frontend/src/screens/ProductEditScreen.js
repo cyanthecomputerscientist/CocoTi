@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useReducer, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import ListGroup from "react-bootstrap/ListGroup";
 import { Helmet } from "react-helmet-async";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingBox from "../components/LoadingBox";
@@ -26,9 +27,9 @@ const reducer = (state, action) => {
     case "UPDATE_FAIL":
       return { ...state, loadingUpdate: false };
     case "UPLOAD_REQUEST":
-      return { ...state, loadingUpload: true, errorUpload: "" };
+      return { ...state, loadingUpload: true };
     case "UPLOAD_SUCCESS":
-      return { ...state, loadingUpload: false, errorUpload: "" };
+      return { ...state, loadingUpload: false };
     case "UPLOAD_FAIL":
       return { ...state, loadingUpload: false, errorUpload: action.payload };
     default:
@@ -53,21 +54,22 @@ export default function ProductEditScreen() {
   const [countInStock, setCountInStock] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+  const [moreImages, setMoreImages] = useState([]);
   const [category, setCategory] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = axios.get(`/api/products/${productId}`);
+        const { data } = await axios.get(`/api/products/${productId}`);
         setName(data.name);
         setSlug(data.slug);
         setPrice(data.price);
         setImage(data.images);
+        setMoreImages(data.moreImages);
         setCategory(data.category);
         setCountInStock(data.countInStock);
         setDescription(data.description);
-
         dispatch({ type: "FETCH_SUCCESS" });
       } catch (err) {
         dispatch({ type: "FETCH_FAIL" });
@@ -88,12 +90,14 @@ export default function ProductEditScreen() {
           slug,
           price,
           image,
+          moreImages,
           category,
           countInStock,
           description,
         },
         { headers: { Authorization: `Bearer ${userInfo.token}` } }
       );
+      dispatch({ type: "UPDATE_SUCCESS" });
       toast.success("Product updated Sucessfully");
       navigate("/admin/products");
     } catch (err) {
@@ -101,7 +105,7 @@ export default function ProductEditScreen() {
       dispatch({ type: "UPDATE_FAIL" });
     }
   };
-  const uploadFileHandler = async (e) => {
+  const uploadFileHandler = async (e, forMoreImages) => {
     const file = e.target.files[0];
     const bodyFormData = new FormData();
     bodyFormData.append("file", file);
@@ -115,13 +119,21 @@ export default function ProductEditScreen() {
       });
       dispatch({ type: "UPLOAD_SUCCESS" });
       toast.success("Image uploaded successfully");
-      setImage(data.secure_url);
+      if (forMoreImages) {
+        setMoreImages([...moreImages, data.secure_url]);
+      } else {
+        setImage(data.secure_url);
+      }
+      toast.success("Image upload successfully. Click update to apply it");
     } catch (err) {
       toast.error(getError(err));
       dispatch({ type: "UPLOAD_FAIL", payload: getError(err) });
     }
   };
-
+  const deleteFileHandler = async (fileName) => {
+    setMoreImages(moreImages.filter((x) => x !== fileName));
+    toast.success("Images removed successfully. Click Update to apply it");
+  };
   return (
     <Container>
       <Helmet>Edit Product #{productId}</Helmet>
@@ -166,10 +178,34 @@ export default function ProductEditScreen() {
             ></Form.Control>
           </Form.Group>
           <Form.Group className="mb-3" controlId="image">
-            <Form.Label>upload File</Form.Label>
+            <Form.Label>Upload File</Form.Label>
             <Form.Control
               type="file"
               onChange={uploadFileHandler}
+            ></Form.Control>
+            {loadingUpload && <LoadingBox></LoadingBox>}
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="additionalImage">
+            <Form.Label>Additional Images</Form.Label>
+            {moreImages.length === 0 && <MessageBox>No image</MessageBox>}
+            <ListGroup variant="flush">
+              {moreImages.map((x) => (
+                <ListGroup.Item key={x}>
+                  {x}
+                  <Button variant="light" onClick={() => deleteFileHandler(x)}>
+                    <i className="fa fa-times-circle"></i>
+                  </Button>
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="additionalImageFile">
+            <Form.Label>Upload Additional Image</Form.Label>
+            <Form.Control
+              type="file"
+              onChange={(e) => uploadFileHandler(e, true)}
             ></Form.Control>
             {loadingUpload && <LoadingBox></LoadingBox>}
           </Form.Group>
