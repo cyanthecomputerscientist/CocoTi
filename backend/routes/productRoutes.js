@@ -42,6 +42,7 @@ productRouter.put(
       product.slug = req.body.slug;
       product.price = req.body.price;
       product.images = req.body.image;
+      product.moreImages = req.body.moreImages;
       product.category = req.body.category;
       product.countInStock = req.body.countInStock;
       product.description = req.body.description;
@@ -207,9 +208,9 @@ productRouter.get("/slug/:slug", async (req, res) => {
   }
 });
 
-productRouter.get("/:id", (req, res) => {
-  const product = data.products.find((x) => parseInt(req.params.id));
-
+productRouter.get("/:id", async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  console.log(req.params.id);
   if (product) {
     res.send(product);
   } else {
