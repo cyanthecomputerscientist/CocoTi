@@ -68,7 +68,7 @@ function App() {
           sidebarIsOpen
             ? fullBox
               ? "site-container active-cont d-flex flex-column full-box"
-              : "site-container active-cont d-flex flex-columm"
+              : "site-container active-cont d-flex flex-column"
             : fullBox
             ? "site-container d-flex flex-column full-box"
             : "site-container d-flex flex-column"
