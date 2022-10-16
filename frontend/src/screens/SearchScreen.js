@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -68,7 +68,7 @@ export default function SearchScreen() {
   const rating = sp.get("rating") || "all";
   const order = sp.get("order") || "newest";
   const page = sp.get("page") || 1;
-
+  const pageRef = useRef();
   const [{ loading, error, products, pages, countProducts }, dispatch] =
     useReducer(reducer, { loading: true, error: "" });
 
@@ -116,7 +116,7 @@ export default function SearchScreen() {
       </Helmet>
       <Row>
         <Col md={3}>
-          <h3>Category</h3>
+          <h3 ref={pageRef}>Category</h3>
           <div>
             <ul>
               <li>
@@ -244,6 +244,12 @@ export default function SearchScreen() {
                     <Button
                       className={Number(page) === x + 1 ? "text=bold" : ""}
                       variant="light"
+                      onClick={() => {
+                        window.scrollTo({
+                          behavior: "smooth",
+                          top: pageRef.current.offsetTop,
+                        });
+                      }}
                     >
                       {x + 1}
                     </Button>
