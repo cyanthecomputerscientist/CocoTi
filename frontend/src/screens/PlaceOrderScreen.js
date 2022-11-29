@@ -40,7 +40,7 @@ export default function PlaceOrderScreen() {
 
   const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
 
-  cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
+  cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(5);
   cart.taxPrice = round2(cart.itemsPrice * 0.15);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 

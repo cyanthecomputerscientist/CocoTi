@@ -14,7 +14,7 @@ export default function ShippingAddressScreen() {
     userInfo,
     cart: { shippingAddress },
   } = state;
-  const [firstName, setFirstName] = useState(shippingAddress.firstName || "");
+  const [firstName, setFirstName] = useState(shippingAddress.fullName || "");
   const [lastName, setLastName] = useState(shippingAddress.lastName || "");
   const [address, setAddress] = useState(shippingAddress.address || "");
   const [city, setCity] = useState(shippingAddress.city || "");
@@ -28,7 +28,8 @@ export default function ShippingAddressScreen() {
     if (!userInfo) {
       navigate("/signin?redirect=/shipping");
     }
-  });
+  }, [userInfo, navigate]);
+
   const submitHandler = (e) => {
     e.preventDefault();
     ctxDispach({
